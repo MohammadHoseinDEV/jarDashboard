@@ -336,6 +336,7 @@ function EditProductsJsx({
             step="0.01"
             placeholder="35"
             name="weightOfPackingTolerance"
+            value={form.weightOfPackingTolerance}
             onChange={inputHandler}
             className="input-number"
           />
@@ -395,6 +396,7 @@ function EditProductsJsx({
             step="0.01"
             placeholder="19"
             name="numberOfLayers"
+            value={form?.numberOfLayers ?? 0}
             onChange={inputHandler}
             className="input-number"
           />
@@ -584,7 +586,7 @@ function EditProductsJsx({
                 step="0.01"
                 placeholder="1"
                 name="quantity"
-                value={item.quantity === 0 ? '' : item.quantity || ''}
+                value={item.quantity ?? 0}
                 onChange={(e) => packagingHandler(e, index)}
                 className="input-number"
               />

@@ -548,7 +548,6 @@ function AddProductsJsx({
                 step="0.01"
                 placeholder="1"
                 name="quantity"
-                value={item.quantity === 0 ? '' : item.quantity}
                 onChange={(e) => packagingHandler(e, index)}
                 className="input-number"
               />

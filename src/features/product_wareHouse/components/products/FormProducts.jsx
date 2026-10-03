@@ -15,7 +15,6 @@ function FormProducts({
   setSelectedProducts,
   seledtedProducts,
 }) {
-  console.log(seledtedProducts);
   const img = seledtedProducts?.productImagePath
     ? `${API_HOST}:5258/${seledtedProducts.productImagePath}`
     : null;
@@ -372,7 +371,7 @@ function FormProducts({
                     QUANTITY
                   </p>
                   <p className="flex h-11 items-center justify-center border-r border-b font-[AvenirLTProMedium]">
-                    {seledtedProducts?.packagingMaterials[0]?.quantity || ''}
+                    {seledtedProducts?.packagingMaterials[0]?.quantity}
                   </p>
                 </div>
                 {/* DIMENSIONS */}
@@ -433,22 +432,22 @@ function FormProducts({
                 return (
                   <div key={index} className="flex h-8 text-left text-[13px]">
                     <p className="flex w-[100px] items-center justify-center border-b">
-                      {item?.unit || ''}
+                      {item?.unit}
                     </p>
                     <p className="flex w-[75px] items-center justify-center border-r border-b font-[AvenirLTProMedium]">
-                      {item?.quantity || ''}
+                      {item?.quantity}
                     </p>
                     <p
                       className="flex w-40 items-center justify-center border-r border-b font-[AvenirLTProMedium]"
                       dir="ltr"
                     >
-                      {item?.dimensions || ''}
+                      {item?.dimensions}
                     </p>
                     <p className="flex w-[310px] items-center justify-end border-r border-b pl-1 font-[AvenirLTProMedium]">
-                      {item?.quality || ''}
+                      {item?.quality}
                     </p>
                     <p className="flex w-[199px] items-center justify-end border-r border-b pl-1">
-                      {item?.materialName || ''}
+                      {item?.materialName}
                     </p>
                   </div>
                 );

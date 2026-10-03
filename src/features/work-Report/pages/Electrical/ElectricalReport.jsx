@@ -621,6 +621,9 @@ function ElectricalReport() {
                         askDelete={askDelete}
                         setOpenFormReport={setOpenForm}
                         setSelectedReport={setSelectedElectrical}
+                        profile={profile}
+                        isSuperAdmin={isSuperAdmin}
+                        isSupervisor={isSupervisor}
                       />
                     </td>
                   </tr>

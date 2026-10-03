@@ -184,4 +184,5 @@ function AddProducts({ openCreateModal, setOpenCreateModal }) {
   );
 }
 
+
 export default AddProducts;

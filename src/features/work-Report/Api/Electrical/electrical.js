@@ -112,16 +112,19 @@ export const useGetElectricalReports = ({
   return getElectrical;
 };
 
-export const useGetElectericalReportAll = () => {
+export const useGetElectericalReportAll = ({ enabled = true } = {}) => {
   const { token } = useSelector((state) => state.auth);
   const getElectericalAll = useQuery({
-    queryKey: ['electrical', token],
+    queryKey: ['electrical', token, 'all'],
     queryFn: async () => {
       const res = await axios.get(`${BASE_API}/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;
     },
+    enabled,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
   return getElectericalAll;
 };

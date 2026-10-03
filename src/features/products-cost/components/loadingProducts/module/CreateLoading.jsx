@@ -66,6 +66,7 @@ const buildFormData = (data, { includeImages }) => {
 
 function CreateLoading({ openCreateModal, setOpenCreateModal, profile }) {
   const [form, setForm] = useState(initialState);
+  const [pageSize, setPageSize] = useState(10);
 
   const closeHandler = () => {
     setOpenCreateModal(false);
@@ -75,13 +76,13 @@ function CreateLoading({ openCreateModal, setOpenCreateModal, profile }) {
     });
   };
 
-  const { data: product } = useGetProducts();
+  const { data: product } = useGetProducts({ pageSize: 10000000 });
   const [searchProducts, setSearchProducts] = useState('');
   const getProducts = useMemo(() => {
     const none = { id: '', name: 'Product Selection' };
     return [
       none,
-      ...(product ?? []).map((p) => ({
+      ...(product?.items ?? [])?.map((p) => ({
         id: p.id,
         name: p.productName,
         code: p.productCode,

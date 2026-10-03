@@ -20,7 +20,6 @@ import { MdMoreVert } from 'react-icons/md';
 import edit from '../../../../assets/images/edit.png';
 import deleteIcon from '../../../../assets/images/delete.png';
 import form from '../../../../assets/images/form.png';
-import { useGetProfile } from '../../../../hooks/profile/profile';
 
 function ReportActionElectrical({
   report,
@@ -30,20 +29,13 @@ function ReportActionElectrical({
   askDelete,
   setOpenFormReport,
   setSelectedReport,
+  profile, // 👈 از پدر (ElectricalReport) پاس داده می‌شه، دیگه خودش فچ نمی‌کنه
+  isSuperAdmin, // 👈 از پدر پاس داده می‌شه
+  isSupervisor, // 👈 از پدر پاس داده می‌شه
 }) {
   if (!report) return null;
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const { data: profile } = useGetProfile();
-
-  const isSuperAdmin = profile?.data?.identityRoles?.some(
-    (p) => p.roleId === 'cfa79204-d797-4241-8630-55fcc1b2f721'
-  );
-
-  const isSupervisor = profile?.data?.companyRoles?.some(
-    (p) => p.roleId === '5e6bcab8-bb18-482f-9805-477ac64fa209'
-  );
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'bottom-start',

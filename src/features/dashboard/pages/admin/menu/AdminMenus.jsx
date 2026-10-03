@@ -21,24 +21,7 @@ import Pagination from '../../../../../pagination/Pagination';
 import { MENU_ICON_MAP, MENU_ICON_OPTIONS } from '../../../../../icons/icons';
 import { HashLoader } from 'react-spinners';
 import API_HOST from '../../../../../../API/api';
-
-function buildTreeFromApiResponse(data) {
-  const menus = Array.isArray(data?.menus)
-    ? data.menus
-    : Array.isArray(data)
-      ? data
-      : [];
-  return menus;
-}
-
-function flattenTree(items, level = 0) {
-  const out = [];
-  for (const it of items || []) {
-    out.push({ ...it, __level: level });
-    if (it?.subMenus?.length) out.push(...flattenTree(it.subMenus, level + 1));
-  }
-  return out;
-}
+import { useGetMenu } from '../../../../../hooks/menu/menuApi';
 
 function AdminMenus() {
   const [search, setSearch] = useState('');
@@ -77,40 +60,24 @@ function AdminMenus() {
     isActive: true,
   });
 
-  const headers = useMemo(
-    () => ({
-      Authorization: `Bearer ${token}`,
-    }),
-    [token]
-  );
+  const { data, isLoading, isError } = useGetMenu({ page, pageSize, search });
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['admin-menus-list', page, pageSize, search],
-    enabled: !!token,
-    keepPreviousData: true,
-    queryFn: async () => {
-      const res = await axios.get(`${API_HOST}:5257/api/MyMenu`, {
-        headers,
-        params: { page, pageSize, search },
-      });
-      return res.data;
-    },
-  });
+  const flatList = useMemo(() => {
+    const flatten = (list) =>
+      (list || []).flatMap((menu) => [menu, ...flatten(menu.subMenus)]);
 
-  const menusTree = useMemo(() => buildTreeFromApiResponse(data), [data]);
-  const menusFlat = useMemo(() => flattenTree(menusTree), [menusTree]);
+    return flatten(data?.menus);
+  }, [data]);
 
   const parentOptions = useMemo(() => {
-    return menusFlat.map((m) => ({
+    return flatList.map((m) => ({
       id: m.id,
       title: m.title,
       name: m.name,
       isActive: m.isActive,
     }));
-  }, [menusFlat]);
-
-  const refetch = () =>
-    queryClient.invalidateQueries({ queryKey: ['admin-menus-list'] });
+  }, [flatList]);
+  console.log(parentOptions);
 
   const resetForm = () => {
     setEditing(null);
@@ -568,7 +535,7 @@ function AdminMenus() {
                           </thead>
 
                           <tbody className="max-sm:grid max-sm:grid-cols-1">
-                            {menusFlat?.map((m) => (
+                            {flatList?.map((m) => (
                               <tr
                                 key={m.id}
                                 className="rounded-xl bg-white/5 text-center"

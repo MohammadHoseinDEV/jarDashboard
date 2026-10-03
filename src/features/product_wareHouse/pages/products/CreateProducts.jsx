@@ -54,10 +54,6 @@ function CreateProducts() {
   const [openFilterMobile, setOpenFilterMobile] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
 
-  useEffect(() => {
-    setPage(1);
-  }, [search, pageSize]);
-
   // RBAC
   const perm = useMemo(
     () => getPerm(userMenus, 'definition-of-product'),
@@ -93,7 +89,6 @@ function CreateProducts() {
     setOpenDetails(true);
     setSelectedProducts(p);
   };
-  
 
   // Get Products
   const {
@@ -102,9 +97,11 @@ function CreateProducts() {
     isError,
   } = useGetProducts({ page, pageSize, search });
 
-  const totalPages = products?.data?.totalPages ?? 1;
+  console.log(products);
 
-  const filteredData = products;
+  const totalPages = products?.totalPages ?? 1;
+
+  const filteredData = products?.items;
 
   return (
     <div className="h-screen overflow-hidden rounded-[15px] bg-[#0F090C]/30 text-white">
@@ -196,7 +193,7 @@ function CreateProducts() {
             <p className="my-auto h-13 border-l-2 border-[#f35714]/70"></p>
             <div className="my-auto px-5">
               <p className="font-[AvenirLTProHeavy] text-[25px] font-extrabold text-white">
-                {products?.length}
+                {products?.totalCount}
               </p>
               <p className="text-white/60 max-2xl:text-[15px] max-lg:pb-2 max-lg:text-[10px]">
                 کل شناسنامه ها
@@ -214,7 +211,6 @@ function CreateProducts() {
             خطا در دریافت اطلاعات 😟
           </div>
         ) : (
-          
           <div className="no-scrollbar 5xl:mt-5 flex min-h-0 w-full overflow-x-hidden overflow-y-auto">
             <div className="mx-3 w-full max-md:hidden">
               <TableProducts

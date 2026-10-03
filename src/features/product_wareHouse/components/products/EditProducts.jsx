@@ -88,6 +88,7 @@ function EditProducts({
       palletTotalWeight: selectedProducts?.palletTotalWeight,
       palletBottlesWeight: selectedProducts?.palletBottlesWeight,
       palletPackingWeight: selectedProducts?.palletPackingWeight,
+      weightOfPackingTolerance: selectedProducts?.weightOfPackingTolerance,
       numberOfBottlesIn1Ton: selectedProducts?.numberOfBottlesIn1Ton,
       numberOfBottlesIn1M3: selectedProducts?.numberOfBottlesIn1M3,
       numberOfBottlesInPallet: selectedProducts?.numberOfBottlesInPallet,
