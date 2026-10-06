@@ -42,7 +42,10 @@ function ReportActionBachplant({
   );
 
   const isSupervisor = profile?.data?.companyRoles?.some(
-    (p) => p.roleId === 'e4a2f36a-a4da-42b0-b0c0-284bddb423ac'
+    (p) =>
+      p.roleId === 'e4a2f36a-a4da-42b0-b0c0-284bddb423ac' ||
+      p.roleId === '18783471-a9eb-4328-8d98-8fccbb6cab46' ||
+      p.roleId === 'e8d691c5-827c-4c65-9d1a-14def8620ade'
   );
 
   const { refs, floatingStyles, context } = useFloating({

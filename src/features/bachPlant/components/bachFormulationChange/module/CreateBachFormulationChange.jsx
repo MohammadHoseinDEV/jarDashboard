@@ -51,7 +51,6 @@ function CreateBachFormulationChange({ openCreateModal, setOpenCreateModal }) {
   const [form, setForm] = useState(initioalState);
 
   const { data: profile } = useGetProfile();
-  const { data: profiles } = useGetProfile();
 
   const findcompany = profile?.data?.companyRoles.find(
     (c) => c.companyId,
